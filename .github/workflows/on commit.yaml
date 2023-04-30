@@ -15,8 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "test"
+  test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -41,8 +41,11 @@ jobs:
           sudo apt-get install -y nvidia-opencl-dev
 
           # Install drivers for Intel GPUs
-          sudo apt-get install -y beignet-opencl-icd
+          sudo apt-get install -y intel-opencl-icd
       
-      - name: Run a multi-line script
+          # Install drivers for Imagination Technologies PowerVR GPUs
+          sudo apt-get install -y libpocl-dev
+      
+      - name: Build and run OpenCL program
         run: |
-          "test OpenCL.exe"
+          mono "./test OpenCL.exe"
