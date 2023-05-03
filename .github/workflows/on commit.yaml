@@ -145,9 +145,6 @@ jobs:
             
             const tag = "unstable";
             
-            //console.log({ api: github.rest.repos });
-            
-            
             const release = await github.rest.repos.createRelease({
               owner, repo,
               tag_name: tag,
@@ -171,24 +168,3 @@ jobs:
               });
               
             }
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: unstable
-#          release_name: Unstable build
-#          body: |
-#            This is an unstable build generated automatically.
-#          draft: false
-#          prerelease: true
-#        
-#      - name: Upload Release Assets
-#        id: upload-release-assets
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ./Release/
-#          asset_name: *
