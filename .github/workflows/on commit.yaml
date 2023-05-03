@@ -1,51 +1,90 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Pack and test
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches-ignore:
+      - 'pack-changes/*'
   pull_request:
     branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
+permissions:
+  contents: write
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "test"
   test:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Install Mono
+      - name: apt-gen update
         run: |
           sudo apt-get update
+        
+      - name: Download Pascal Compiler
+        run: |
+        
+          curl -O https://pascalabc.net/downloads/PABCNETC.zip
+          file -i PABCNETC.zip
+          
+          #sudo apt-get install -y p7zip-full
+          #7z -scsWIN -sccWIN x PABCNETC.zip -oPABCNETC
+          
+          #unzip -j PABCNETC.zip -d PABCNETC
+          
+          sudo apt-get install -y minizip
+          mkdir PABCNETC
+          miniunzip PABCNETC.zip -d PABCNETC
+          
+          rm PABCNETC.zip
+          
+      - name: Install Mono
+        run: |
           sudo apt-get install -y mono-complete
 
       - name: Install OpenCL Drivers
         run: |
+        
           sudo apt-get install -y ocl-icd-opencl-dev
-
+          
           # Install drivers for AMD GPUs
-          sudo apt-get install -y mesa-opencl-icd
-
+          #sudo apt-get install -y mesa-opencl-icd
+          
           # Install drivers for Nvidia GPUs
-          sudo apt-get install -y nvidia-opencl-dev
-
+          #sudo apt-get install -y nvidia-opencl-dev
+          
           # Install drivers for Intel GPUs
-          sudo apt-get install -y intel-opencl-icd
-      
+          #sudo apt-get install -y intel-opencl-icd
+          
           # Install drivers for Imagination Technologies PowerVR GPUs
           sudo apt-get install -y libpocl-dev
-      
+          
       - name: Build and run OpenCL program
         run: |
+        
+          #mono "PABCNETC/pabcnetcclear.exe" "./test OpenCL.pas"
           mono "./test OpenCL.exe"
+      
+      - name: Check for changes
+        run: |
+        
+          rm -rf PABCNETC
+          
+          if git diff --quiet; then
+            echo "No changes detected"
+          else
+            echo "Changes detected"
+            git checkout -B "pack-changes/$(git rev-parse --abbrev-ref HEAD)"
+            
+            git add -A
+            git config --global user.name 'pack bot'
+            git config --global user.email 'sunserega2@gmail.com'
+            git commit -m "changes"
+            git push -f --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
+            
+          fi

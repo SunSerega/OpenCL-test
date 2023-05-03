@@ -1,6 +1,7 @@
 ﻿## uses OpenCLABC;
 
 try
+  Rewrite(output, 'test otp.txt');
   foreach var pl in CLPlatform.All do
   begin
     Println(pl);
@@ -13,10 +14,11 @@ try
     end;
     Println('='*30);
   end;
+  output.Close;
 except
   on e: Exception do
   begin
-    Println(e);
+    Console.WriteLine(e);
     Halt(-1);
   end;
 end;
