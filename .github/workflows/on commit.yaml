@@ -88,3 +88,107 @@ jobs:
             git push -f --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
             
           fi
+  
+  generate-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Generate release files
+        run: |
+        
+          mkdir Release
+          copy "test OpenCL.exe" "Release/test OpenCL.exe"
+          copy "test otp.txt" "Release/test otp.txt"
+          # _GenerateAllSetups.bat
+          
+      - name: Delete old Github Release
+        uses: actions/github-script@v6
+        with:
+          script: |
+          
+            const { repo: { owner, repo }, sha } = context;
+            console.log({ owner, repo, sha });
+            
+            const tag = "unstable";
+            
+            // Check if the release already exists
+            const existingReleases = await github.rest.repos.listReleases({ owner, repo });
+            for (const existingRelease of existingReleases.data) {
+              if (existingRelease.tag_name === tag) {
+                console.log('deleing old release', { existingRelease });
+                await github.rest.repos.deleteRelease({
+                  owner,
+                  repo,
+                  release_id: existingRelease.id,
+                });
+                break;
+              }
+            }
+            
+      - name: Delete old release tag
+        run: |
+        
+          git push --delete origin unstable || true
+          
+      - name: Create Github Release
+        uses: actions/github-script@v6
+        with:
+          script: |
+          
+            console.log('environment', process.versions);
+            
+            const fs = require('fs').promises;
+            
+            const { repo: { owner, repo }, sha } = context;
+            console.log({ owner, repo, sha });
+            
+            const tag = "unstable";
+            
+            //console.log({ api: github.rest.repos });
+            
+            
+            const release = await github.rest.repos.createRelease({
+              owner, repo,
+              tag_name: tag,
+              name: "Unstable build",
+              draft: false,
+              prerelease: true,
+              target_commitish: sha
+            });
+            
+            console.log('created release', { release });
+            
+            for (let file of await fs.readdir('Release')) {
+              // do whatever filtering you want here, I'm just uploading all the files
+              console.log('uploading', file);
+              
+              await github.rest.repos.uploadReleaseAsset({
+                owner, repo,
+                release_id: release.data.id,
+                name: file,
+                data: await fs.readFile(`./Release/${file}`)
+              });
+              
+            }
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: unstable
+#          release_name: Unstable build
+#          body: |
+#            This is an unstable build generated automatically.
+#          draft: false
+#          prerelease: true
+#        
+#      - name: Upload Release Assets
+#        id: upload-release-assets
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./Release/
+#          asset_name: *
