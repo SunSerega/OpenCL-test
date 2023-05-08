@@ -2,6 +2,9 @@
 
 try
   Rewrite(output, 'test otp.txt');
+  
+  Println(System.Environment.ProcessorCount);
+  
   foreach var pl in CLPlatform.All do
   begin
     Println(pl);
