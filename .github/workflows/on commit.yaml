@@ -1,4 +1,4 @@
-name: Pack and test
+﻿name: Pack and test
 
 # Controls when the workflow will run
 on:
@@ -6,11 +6,14 @@ on:
     branches-ignore:
       - 'pack-changes/*'
   pull_request:
-    branches: [ "main" ]
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -29,7 +32,7 @@ jobs:
       - name: Download Pascal Compiler
         run: |
         
-          curl -O https://pascalabc.net/downloads/PABCNETC.zip
+          curl -L -O https://github.com/SunSerega/pascalabcnet/releases/download/unstable/PABCNETC.zip
           file -i PABCNETC.zip
           
           #sudo apt-get install -y p7zip-full
@@ -46,6 +49,7 @@ jobs:
       - name: Install Mono
         run: |
           sudo apt-get install -y mono-complete
+          sudo apt-get install -y gdb lldb
 
       - name: Install OpenCL Drivers
         run: |
@@ -67,7 +71,7 @@ jobs:
       - name: Build and run OpenCL program
         run: |
         
-          #mono "PABCNETC/pabcnetcclear.exe" "./test OpenCL.pas"
+          mono "PABCNETC/pabcnetcclear.exe" "./test OpenCL.pas"
           mono "./test OpenCL.exe"
       
       - name: Check for changes
@@ -89,24 +93,20 @@ jobs:
             
           fi
   
-  generate-release:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      
       - name: Generate release files
         run: |
         
           mkdir Release
-          copy "test OpenCL.exe" "Release/test OpenCL.exe"
-          copy "test otp.txt" "Release/test otp.txt"
-          # _GenerateAllSetups.bat
+          cp "test OpenCL.exe" "Release/test OpenCL.exe"
+          cp "test otp.txt" "Release/test otp.txt"
           
-      - name: Delete old Github Release
+      - name: Create Github Release
         uses: actions/github-script@v6
         with:
           script: |
           
+            console.log('environment', process.versions);
+            
             const { repo: { owner, repo }, sha } = context;
             console.log({ owner, repo, sha });
             
@@ -126,30 +126,24 @@ jobs:
               }
             }
             
-      - name: Delete old release tag
-        run: |
-        
-          git push --delete origin unstable || true
+            try {
+              await github.rest.git.deleteRef({
+                owner: owner,
+                repo: repo,
+                ref: 'tags/unstable'
+              });
+              console.log('Tag deleted successfully');
+            } catch (error) {
+              console.error(`Error deleting tag: ${error}`);
+            }
           
-      - name: Create Github Release
-        uses: actions/github-script@v6
-        with:
-          script: |
-          
-            console.log('environment', process.versions);
-            
             const fs = require('fs').promises;
-            
-            const { repo: { owner, repo }, sha } = context;
-            console.log({ owner, repo, sha });
-            
-            const tag = "unstable";
             
             const release = await github.rest.repos.createRelease({
               owner, repo,
               tag_name: tag,
               name: "Unstable build",
-              draft: false,
+              draft: true,
               prerelease: true,
               target_commitish: sha
             });
@@ -157,14 +151,28 @@ jobs:
             console.log('created release', { release });
             
             for (let file of await fs.readdir('Release')) {
-              // do whatever filtering you want here, I'm just uploading all the files
               console.log('uploading', file);
               
-              await github.rest.repos.uploadReleaseAsset({
-                owner, repo,
-                release_id: release.data.id,
-                name: file,
-                data: await fs.readFile(`./Release/${file}`)
-              });
+              try {
+                await github.rest.repos.uploadReleaseAsset({
+                  owner, repo,
+                  release_id: release.data.id,
+                  name: file,
+                  data: await fs.readFile(`./Release/${file}`)
+                });
+              } catch (error) {
+                console.error(`Error uploading: ${error}`);
+              }
               
             }
+            
+            if (release.data.draft) {
+              console.log('finalizing draft release');
+              await github.rest.repos.updateRelease({
+                owner,
+                repo,
+                release_id: release.data.id,
+                draft: false,
+              });
+            }
+  
