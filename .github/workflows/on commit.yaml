@@ -73,11 +73,16 @@ jobs:
         
           mono "PABCNETC/pabcnetcclear.exe" "./test OpenCL.pas"
           mono "./test OpenCL.exe"
-      
+          rm -rf PABCNETC
+          
       - name: Check for changes
         run: |
         
-          rm -rf PABCNETC
+          if git push origin --delete "pack-changes/$(git rev-parse --abbrev-ref HEAD)" &> /dev/null; then
+            echo "Old changes branch deleted"
+          else
+            echo "Old changes branch not found"
+          fi
           
           if git diff --quiet; then
             echo "No changes detected"
