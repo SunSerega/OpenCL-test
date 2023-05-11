@@ -55,6 +55,7 @@ jobs:
         run: |
         
           sudo apt-get install -y ocl-icd-opencl-dev
+          sudo apt-get install -y pocl-opencl-icd
           
           # Install drivers for AMD GPUs
           #sudo apt-get install -y mesa-opencl-icd
@@ -66,7 +67,7 @@ jobs:
           #sudo apt-get install -y intel-opencl-icd
           
           # Install drivers for Imagination Technologies PowerVR GPUs
-          sudo apt-get install -y libpocl-dev
+          #sudo apt-get install -y libpocl-dev
           
       - name: Build and run OpenCL program
         run: |
