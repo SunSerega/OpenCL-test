@@ -5,7 +5,7 @@ try
   
   Println(System.Environment.ProcessorCount);
   
-  foreach var pl in CLPlatform.All do
+  foreach var pl in CLPlatform.All ?? System.Array.Empty&<CLPlatform> do
   begin
     Println(pl);
     Println(pl.Properties);
