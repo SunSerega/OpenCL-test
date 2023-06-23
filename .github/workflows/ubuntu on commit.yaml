@@ -1,4 +1,4 @@
-﻿name: Pack and test
+﻿name: Ubuntu pack and test
 
 # Controls when the workflow will run
 on:
@@ -6,12 +6,10 @@ on:
     branches-ignore:
       - 'pack-changes/*'
   pull_request:
-  
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: $ubuntu-{{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -19,7 +17,7 @@ permissions:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  test-ubuntu:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +30,11 @@ jobs:
       - name: Download Pascal Compiler
         run: |
         
-          curl -L -O https://github.com/SunSerega/pascalabcnet/releases/download/unstable/PABCNETC.zip
-          file -i PABCNETC.zip
+          (
+            cd ../
+            curl -L -O https://github.com/SunSerega/pascalabcnet/releases/download/unstable/PABCNETC.zip
+            #file -i PABCNETC.zip
+          )
           
           #sudo apt-get install -y p7zip-full
           #7z -scsWIN -sccWIN x PABCNETC.zip -oPABCNETC
@@ -41,15 +42,14 @@ jobs:
           #unzip -j PABCNETC.zip -d PABCNETC
           
           sudo apt-get install -y minizip
-          mkdir PABCNETC
-          miniunzip PABCNETC.zip -d PABCNETC
-          
-          rm PABCNETC.zip
+          mkdir ../PABCNETC
+          miniunzip ../PABCNETC.zip -d ../PABCNETC
           
       - name: Install Mono
         run: |
+        
           sudo apt-get install -y mono-complete
-          sudo apt-get install -y gdb lldb
+          #sudo apt-get install -y gdb lldb
 
       - name: Install OpenCL Drivers
         run: |
@@ -69,34 +69,47 @@ jobs:
           # Install drivers for Imagination Technologies PowerVR GPUs
           #sudo apt-get install -y libpocl-dev
           
+      - name: Download latest POCGL version
+        run: |
+        
+          (
+            cd ../
+            git clone -b unstable --filter=tree:0 --no-checkout https://github.com/SunSerega/POCGL.git
+            cd POCGL
+            git sparse-checkout set --no-cone Modules.Packed/OpenCL.pas Modules.Packed/OpenCLABC.pas
+            git sparse-checkout list
+            git checkout
+            #rm -rf ".git"
+          )
+          
       - name: Build and run OpenCL program
         run: |
         
-          mono "PABCNETC/pabcnetcclear.exe" "./test OpenCL.pas"
+          mono "../PABCNETC/pabcnetcclear.exe" "../POCGL/Modules.Packed/OpenCLABC.pas"
+          mono "../PABCNETC/pabcnetcclear.exe" "/SearchDir:../POCGL/Modules.Packed" "./test OpenCL.pas"
           mono "./test OpenCL.exe"
-          rm -rf PABCNETC
           
       - name: Check for changes
         run: |
         
-          if git push origin --delete "pack-changes/$(git rev-parse --abbrev-ref HEAD)" &> /dev/null; then
+          if git push origin --delete "ubuntu-pack-changes/$(git rev-parse --abbrev-ref HEAD)" &> /dev/null; then
             echo "Old changes branch deleted"
           else
             echo "Old changes branch not found"
           fi
           
-          if git diff --quiet; then
-            echo "No changes detected"
-          else
+          if [[ $(git diff --name-only) || $(git ls-files --others --exclude-standard) ]]; then
             echo "Changes detected"
-            git checkout -B "pack-changes/$(git rev-parse --abbrev-ref HEAD)"
+            git checkout -B "ubuntu-pack-changes/$(git rev-parse --abbrev-ref HEAD)"
             
             git add -A
             git config --global user.name 'pack bot'
             git config --global user.email 'sunserega2@gmail.com'
-            git commit -m "changes"
+            git commit -m "ubuntu changes"
             git push -f --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
             
+          else
+            echo "No changes detected"
           fi
   
       - name: Generate release files
