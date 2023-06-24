@@ -6,7 +6,7 @@ on:
             - 'ubuntu-pack-changes/*'
             - 'win-pack-changes/*'
     pull_request:
-    repository_dispatch:
+    workflow_dispatch:
     
 concurrency:
     group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -83,6 +83,7 @@ jobs:
             - name: Build and run OpenCL program
               run: |
               
+                #TODO compiler crashes without this
                 mono "../PABCNETC/pabcnetcclear.exe" "../POCGL/Modules.Packed/OpenCLABC.pas"
                 mono "../PABCNETC/pabcnetcclear.exe" "/SearchDir:../POCGL/Modules.Packed" "./test OpenCL.pas"
                 mono "./test OpenCL.exe"
