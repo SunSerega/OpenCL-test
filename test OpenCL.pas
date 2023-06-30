@@ -1,17 +1,17 @@
 ﻿## uses OpenCLABC;
 
 try
-  Rewrite(output, 'test otp.txt');
+  Rewrite(output, 'test otp.txt', new System.Text.UTF8Encoding(true));
   
-  Println(System.Environment.ProcessorCount);
+  $'CPU имеет {System.Environment.ProcessorCount} ядер'.Println;
   
   foreach var pl in CLPlatform.All ?? System.Array.Empty&<CLPlatform> do
   begin
-    Println(pl);
+    Println(TypeName(pl));
     Println(pl.Properties);
     foreach var dvc in CLDevice.GetAllFor(pl, CLDeviceType.DEVICE_TYPE_ALL) ?? System.Array.Empty&<CLDevice> do
     begin
-      Println(dvc);
+      Println(TypeName(dvc));
       Println(dvc.Properties);
       Println('~'*30);
     end;

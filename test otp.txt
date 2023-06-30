@@ -1,20 +1,20 @@
-12 
-CLPlatform[466267296] 
+CPU имеет 12 ядер 
+CLPlatform 
 Profile                         = FULL_PROFILE
-Version                         = OpenCL 3.0 CUDA 12.2.68
+Version                         = OpenCL 3.0 CUDA 12.2.79
 Name                            = NVIDIA CUDA
 Vendor                          = NVIDIA Corporation
 Extensions                      = cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 cl_khr_3d_image_writes cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll cl_nv_d3d10_sharing cl_khr_d3d10_sharing cl_nv_d3d11_sharing cl_nv_copy_opts cl_nv_create_buffer cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_device_uuid cl_khr_pci_bus_info cl_khr_external_semaphore cl_khr_external_memory cl_khr_external_semaphore_win32 cl_khr_external_memory_win32
 HostTimerResolution             = 0
 NumericVersion                  = 12582912
-ExtensionsWithVersion           = [(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(36864,),(36864,),(36864,),(36864,)]
+ExtensionsWithVersion           = [(v=1.0:0 name="cl_khr_global_int32_base_atomics"),(v=1.0:0 name="cl_khr_global_int32_extended_atomics"),(v=1.0:0 name="cl_khr_local_int32_base_atomics"),(v=1.0:0 name="cl_khr_local_int32_extended_atomics"),(v=1.0:0 name="cl_khr_fp64"),(v=1.0:0 name="cl_khr_3d_image_writes"),(v=1.0:0 name="cl_khr_byte_addressable_store"),(v=1.0:0 name="cl_khr_icd"),(v=1.0:0 name="cl_khr_gl_sharing"),(v=1.0:0 name="cl_nv_compiler_options"),(v=1.0:0 name="cl_nv_device_attribute_query"),(v=1.0:0 name="cl_nv_pragma_unroll"),(v=1.0:0 name="cl_nv_d3d10_sharing"),(v=1.0:0 name="cl_khr_d3d10_sharing"),(v=1.0:0 name="cl_nv_d3d11_sharing"),(v=1.0:0 name="cl_nv_copy_opts"),(v=1.0:0 name="cl_nv_create_buffer"),(v=1.0:0 name="cl_khr_int64_base_atomics"),(v=1.0:0 name="cl_khr_int64_extended_atomics"),(v=1.0:0 name="cl_khr_device_uuid"),(v=1.0:0 name="cl_khr_pci_bus_info"),(v=0.9:0 name="cl_khr_external_semaphore"),(v=0.9:0 name="cl_khr_external_memory"),(v=0.9:0 name="cl_khr_external_semaphore_win32"),(v=0.9:0 name="cl_khr_external_memory_win32")]
 CommandBufferCapabilities       = INVALID_VALUE
 IcdSuffix                       = NV
 SemaphoreTypes                  = INVALID_VALUE
 SemaphoreImportHandleTypes      = [SEMAPHORE_HANDLE_OPAQUE_WIN32,SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT]
 SemaphoreExportHandleTypes      = [SEMAPHORE_HANDLE_OPAQUE_WIN32,SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT]
 ExternalMemoryImportHandleTypes = [EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32,EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KMT] 
-CLDevice[466264336] 
+CLDevice 
 Type                                                = DEVICE_TYPE_GPU
 VendorId                                            = clKhronosVendorId[4318]
 MaxComputeUnits                                     = 5
@@ -61,7 +61,7 @@ QueueProperties                                     = QUEUE_OUT_OF_ORDER_EXEC_MO
 QueueOnHostProperties                               = QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE+QUEUE_PROFILING_ENABLE
 Name                                                = NVIDIA GeForce GTX 750 Ti
 Vendor                                              = NVIDIA Corporation
-DriverVersion                                       = 535.98
+DriverVersion                                       = 536.40
 Profile                                             = FULL_PROFILE
 Version                                             = OpenCL 3.0 CUDA
 Extensions                                          = cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 cl_khr_3d_image_writes cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll cl_nv_d3d10_sharing cl_khr_d3d10_sharing cl_nv_d3d11_sharing cl_nv_copy_opts cl_nv_create_buffer cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_device_uuid cl_khr_pci_bus_info cl_khr_external_semaphore cl_khr_external_memory cl_khr_external_semaphore_win32 cl_khr_external_memory_win32
@@ -111,22 +111,22 @@ MaxNumSubGroups                                     = 0
 SubGroupIndependentForwardProgress                  = FALSE
 NumericVersion                                      = 12582912
 OpenclCNumericVersion                               = INVALID_VALUE
-ExtensionsWithVersion                               = [(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(36864,),(36864,),(36864,),(36864,)]
+ExtensionsWithVersion                               = [(v=1.0:0 name="cl_khr_global_int32_base_atomics"),(v=1.0:0 name="cl_khr_global_int32_extended_atomics"),(v=1.0:0 name="cl_khr_local_int32_base_atomics"),(v=1.0:0 name="cl_khr_local_int32_extended_atomics"),(v=1.0:0 name="cl_khr_fp64"),(v=1.0:0 name="cl_khr_3d_image_writes"),(v=1.0:0 name="cl_khr_byte_addressable_store"),(v=1.0:0 name="cl_khr_icd"),(v=1.0:0 name="cl_khr_gl_sharing"),(v=1.0:0 name="cl_nv_compiler_options"),(v=1.0:0 name="cl_nv_device_attribute_query"),(v=1.0:0 name="cl_nv_pragma_unroll"),(v=1.0:0 name="cl_nv_d3d10_sharing"),(v=1.0:0 name="cl_khr_d3d10_sharing"),(v=1.0:0 name="cl_nv_d3d11_sharing"),(v=1.0:0 name="cl_nv_copy_opts"),(v=1.0:0 name="cl_nv_create_buffer"),(v=1.0:0 name="cl_khr_int64_base_atomics"),(v=1.0:0 name="cl_khr_int64_extended_atomics"),(v=1.0:0 name="cl_khr_device_uuid"),(v=1.0:0 name="cl_khr_pci_bus_info"),(v=0.9:0 name="cl_khr_external_semaphore"),(v=0.9:0 name="cl_khr_external_memory"),(v=0.9:0 name="cl_khr_external_semaphore_win32"),(v=0.9:0 name="cl_khr_external_memory_win32")]
 IlsWithVersion                                      = nil
 BuiltInKernelsWithVersion                           = nil
 AtomicMemoryCapabilities                            = DEVICE_ATOMIC_ORDER_RELAXED+DEVICE_ATOMIC_SCOPE_WORK_GROUP
 AtomicFenceCapabilities                             = DEVICE_ATOMIC_ORDER_RELAXED+DEVICE_ATOMIC_ORDER_ACQ_REL+DEVICE_ATOMIC_SCOPE_WORK_GROUP
 NonUniformWorkGroupSupport                          = FALSE
-OpenclCAllVersions                                  = [(4194304,),(4198400,),(4202496,),(12582912,)]
+OpenclCAllVersions                                  = [(v=1.0:0 name="OpenCL C"),(v=1.1:0 name="OpenCL C"),(v=1.2:0 name="OpenCL C"),(v=3.0:0 name="OpenCL C")]
 PreferredWorkGroupSizeMultiple                      = 32
 WorkGroupCollectiveFunctionsSupport                 = FALSE
 GenericAddressSpaceSupport                          = FALSE
 Uuid                                                = [139,231,170,106,26,198,144,146,191,7,225,24,168,69,11,22]
 DriverUuid                                          = [139,231,170,106,26,198,144,146,191,7,225,24,168,69,11,22]
 LuidValid                                           = TRUE
-Luid                                                = [76,64,59,16,0,0,0,0]
+Luid                                                = [103,169,0,0,0,0,0,0]
 NodeMask                                            = 1
-OpenclCFeatures                                     = [(12582912,),(12582912,),(12582912,),(12582912,)]
+OpenclCFeatures                                     = [(v=3.0:0 name="__opencl_c_fp64"),(v=3.0:0 name="__opencl_c_images"),(v=3.0:0 name="__opencl_c_int64"),(v=3.0:0 name="__opencl_c_3d_image_writes")]
 DeviceEnqueueCapabilities                           = clDeviceOnDeviceEnqueueCapabilities[0]
 PipeSupport                                         = FALSE
 LatestConformanceVersionPassed                      = v2022-10-05-00
@@ -193,7 +193,7 @@ NumThreadsPerEu                                     = INVALID_VALUE
 FeatureCapabilities                                 = INVALID_VALUE 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ============================== 
-CLPlatform[470684336] 
+CLPlatform 
 Profile                         = FULL_PROFILE
 Version                         = OpenCL 3.0 WINDOWS
 Name                            = Intel(R) OpenCL
@@ -201,14 +201,14 @@ Vendor                          = Intel(R) Corporation
 Extensions                      = cl_khr_spirv_linkonce_odr cl_khr_fp64 cl_khr_icd cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_byte_addressable_store cl_khr_depth_images cl_khr_3d_image_writes cl_khr_il_program cl_intel_unified_shared_memory_preview cl_intel_device_attribute_query cl_intel_subgroups cl_intel_subgroups_char cl_intel_subgroups_short cl_intel_subgroups_long cl_intel_spirv_subgroups cl_intel_required_subgroup_size cl_intel_exec_by_local_thread cl_intel_vec_len_hint cl_khr_spir cl_khr_image2d_from_buffer 
 HostTimerResolution             = 100
 NumericVersion                  = 12582912
-ExtensionsWithVersion           = [(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,)]
+ExtensionsWithVersion           = [(v=1.0:0 name="cl_khr_spirv_linkonce_odr"),(v=1.0:0 name="cl_khr_fp64"),(v=1.0:0 name="cl_khr_icd"),(v=1.0:0 name="cl_khr_global_int32_base_atomics"),(v=1.0:0 name="cl_khr_global_int32_extended_atomics"),(v=1.0:0 name="cl_khr_local_int32_base_atomics"),(v=1.0:0 name="cl_khr_local_int32_extended_atomics"),(v=1.0:0 name="cl_khr_int64_base_atomics"),(v=1.0:0 name="cl_khr_int64_extended_atomics"),(v=1.0:0 name="cl_khr_byte_addressable_store"),(v=1.0:0 name="cl_khr_depth_images"),(v=1.0:0 name="cl_khr_3d_image_writes"),(v=1.0:0 name="cl_khr_il_program"),(v=1.0:0 name="cl_intel_unified_shared_memory_preview"),(v=1.0:0 name="cl_intel_device_attribute_query"),(v=1.0:0 name="cl_intel_subgroups"),(v=1.0:0 name="cl_intel_subgroups_char"),(v=1.0:0 name="cl_intel_subgroups_short"),(v=1.0:0 name="cl_intel_subgroups_long"),(v=1.0:0 name="cl_intel_spirv_subgroups"),(v=1.0:0 name="cl_intel_required_subgroup_size"),(v=1.0:0 name="cl_intel_exec_by_local_thread"),(v=1.0:0 name="cl_intel_vec_len_hint"),(v=1.0:0 name="cl_khr_spir"),(v=1.0:0 name="cl_khr_image2d_from_buffer")]
 CommandBufferCapabilities       = INVALID_VALUE
 IcdSuffix                       = INTEL
 SemaphoreTypes                  = INVALID_VALUE
 SemaphoreImportHandleTypes      = INVALID_VALUE
 SemaphoreExportHandleTypes      = INVALID_VALUE
 ExternalMemoryImportHandleTypes = INVALID_VALUE 
-CLDevice[470752064] 
+CLDevice 
 Type                                                = DEVICE_TYPE_CPU
 VendorId                                            = clKhronosVendorId[32902]
 MaxComputeUnits                                     = 12
@@ -305,13 +305,13 @@ MaxNumSubGroups                                     = 2048
 SubGroupIndependentForwardProgress                  = FALSE
 NumericVersion                                      = 12582912
 OpenclCNumericVersion                               = INVALID_VALUE
-ExtensionsWithVersion                               = [(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,),(4194304,)]
-IlsWithVersion                                      = [(4194304,)]
+ExtensionsWithVersion                               = [(v=1.0:0 name="cl_khr_spirv_linkonce_odr"),(v=1.0:0 name="cl_khr_fp64"),(v=1.0:0 name="cl_khr_icd"),(v=1.0:0 name="cl_khr_global_int32_base_atomics"),(v=1.0:0 name="cl_khr_global_int32_extended_atomics"),(v=1.0:0 name="cl_khr_local_int32_base_atomics"),(v=1.0:0 name="cl_khr_local_int32_extended_atomics"),(v=1.0:0 name="cl_khr_int64_base_atomics"),(v=1.0:0 name="cl_khr_int64_extended_atomics"),(v=1.0:0 name="cl_khr_byte_addressable_store"),(v=1.0:0 name="cl_khr_depth_images"),(v=1.0:0 name="cl_khr_3d_image_writes"),(v=1.0:0 name="cl_khr_il_program"),(v=1.0:0 name="cl_intel_unified_shared_memory_preview"),(v=1.0:0 name="cl_intel_device_attribute_query"),(v=1.0:0 name="cl_intel_subgroups"),(v=1.0:0 name="cl_intel_subgroups_char"),(v=1.0:0 name="cl_intel_subgroups_short"),(v=1.0:0 name="cl_intel_subgroups_long"),(v=1.0:0 name="cl_intel_spirv_subgroups"),(v=1.0:0 name="cl_intel_required_subgroup_size"),(v=1.0:0 name="cl_intel_exec_by_local_thread"),(v=1.0:0 name="cl_intel_vec_len_hint"),(v=1.0:0 name="cl_khr_spir"),(v=1.0:0 name="cl_khr_image2d_from_buffer")]
+IlsWithVersion                                      = [(v=1.0:0 name="SPIR-V")]
 BuiltInKernelsWithVersion                           = nil
 AtomicMemoryCapabilities                            = DEVICE_ATOMIC_ORDER_RELAXED+DEVICE_ATOMIC_ORDER_ACQ_REL+DEVICE_ATOMIC_ORDER_SEQ_CST+DEVICE_ATOMIC_SCOPE_WORK_GROUP+DEVICE_ATOMIC_SCOPE_DEVICE+DEVICE_ATOMIC_SCOPE_ALL_DEVICES
 AtomicFenceCapabilities                             = DEVICE_ATOMIC_ORDER_RELAXED+DEVICE_ATOMIC_ORDER_ACQ_REL+DEVICE_ATOMIC_ORDER_SEQ_CST+DEVICE_ATOMIC_SCOPE_WORK_ITEM+DEVICE_ATOMIC_SCOPE_WORK_GROUP+DEVICE_ATOMIC_SCOPE_DEVICE+DEVICE_ATOMIC_SCOPE_ALL_DEVICES
 NonUniformWorkGroupSupport                          = TRUE
-OpenclCAllVersions                                  = [(12582912,),(8388608,),(4202496,),(4198400,),(4194304,)]
+OpenclCAllVersions                                  = [(v=3.0:0 name="OpenCL C"),(v=2.0:0 name="OpenCL C"),(v=1.2:0 name="OpenCL C"),(v=1.1:0 name="OpenCL C"),(v=1.0:0 name="OpenCL C")]
 PreferredWorkGroupSizeMultiple                      = 128
 WorkGroupCollectiveFunctionsSupport                 = TRUE
 GenericAddressSpaceSupport                          = TRUE
@@ -320,7 +320,7 @@ DriverUuid                                          = INVALID_VALUE
 LuidValid                                           = INVALID_VALUE
 Luid                                                = INVALID_VALUE
 NodeMask                                            = INVALID_VALUE
-OpenclCFeatures                                     = [(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,),(12582912,)]
+OpenclCFeatures                                     = [(v=3.0:0 name="__opencl_c_3d_image_writes"),(v=3.0:0 name="__opencl_c_atomic_order_acq_rel"),(v=3.0:0 name="__opencl_c_atomic_order_seq_cst"),(v=3.0:0 name="__opencl_c_atomic_scope_device"),(v=3.0:0 name="__opencl_c_atomic_scope_all_devices"),(v=3.0:0 name="__opencl_c_device_enqueue"),(v=3.0:0 name="__opencl_c_generic_address_space"),(v=3.0:0 name="__opencl_c_fp64"),(v=3.0:0 name="__opencl_c_images"),(v=3.0:0 name="__opencl_c_int64"),(v=3.0:0 name="__opencl_c_pipes"),(v=3.0:0 name="__opencl_c_program_scope_global_variables"),(v=3.0:0 name="__opencl_c_read_write_images"),(v=3.0:0 name="__opencl_c_subgroups"),(v=3.0:0 name="__opencl_c_work_group_collective_functions")]
 DeviceEnqueueCapabilities                           = DEVICE_QUEUE_SUPPORTED+DEVICE_QUEUE_REPLACEABLE_DEFAULT
 PipeSupport                                         = TRUE
 LatestConformanceVersionPassed                      = v2022-10-05-00

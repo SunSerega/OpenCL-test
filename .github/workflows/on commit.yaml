@@ -83,7 +83,7 @@ jobs:
             - name: Build and run OpenCL program
               run: |
               
-                #TODO compiler crashes without this
+                #TODO pabcnet#2895
                 mono "../PABCNETC/pabcnetcclear.exe" "../POCGL/Modules.Packed/OpenCLABC.pas"
                 mono "../PABCNETC/pabcnetcclear.exe" "/SearchDir:../POCGL/Modules.Packed" "./test OpenCL.pas"
                 mono "./test OpenCL.exe"
